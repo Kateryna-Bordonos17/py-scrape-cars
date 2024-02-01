@@ -13,14 +13,14 @@ class AutoRiaSpider(scrapy.Spider):
     start_urls = ["https://auto.ria.com/uk/car/used/"]
 
     # Uncomment this if you want to scrape a few pages
-    max_pages = 5
-    pages_parsed = 0
+    # max_pages = 5
+    # pages_parsed = 0
 
     def parse(self, response: Response, **kwargs):
         # Uncomment this if you want to scrape a few pages
-        if self.pages_parsed >= self.max_pages:
-            self.log("Reached the maximum number of pages to parse. Stopping.")
-            return
+        # if self.pages_parsed >= self.max_pages:
+        #     self.log("Reached the maximum number of pages to parse. Stopping.")
+        #     return
 
         for car in response.css(".ticket-item"):
             cars_page = car.css(".head-ticket a::attr(href)").get()
@@ -28,7 +28,7 @@ class AutoRiaSpider(scrapy.Spider):
                                   callback=self.parse_cars)
 
         # Uncomment this if you want to scrape a few pages
-        self.pages_parsed += 1
+        # self.pages_parsed += 1
 
         next_page = response.css(".pager > span")[-1].css("a::attr(href)").get()
 
