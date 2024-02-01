@@ -1,20 +1,10 @@
 import os
 from datetime import datetime
-import psycopg2
 
-from cars_scraper import settings
+from app_scripts.database import connection, cursor
 
 
 def create_dump():
-    connection = psycopg2.connect(
-        host=settings.DATABASES["default"]["HOST"],
-        port=settings.DATABASES["default"]["PORT"],
-        user=settings.DATABASES["default"]["USER"],
-        password=settings.DATABASES["default"]["PASSWORD"],
-        database=settings.DATABASES["default"]["NAME"]
-    )
-    cursor = connection.cursor()
-
     dumps_directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dumps")
     os.makedirs(dumps_directory, exist_ok=True)
     dump_filename = os.path.join(dumps_directory,
